@@ -1,5 +1,5 @@
-# bank-of-react-starter-code
-This repository is the starter code for Assignment 3 - Bank of React.
+# Jia Jun's bank-of-react
+This repository is Jia Jun's code for Assignment 3 - Bank of React.
 
 ### Live Link 
 [Website link](https://jackiewu099.github.io/assignment-3/)
