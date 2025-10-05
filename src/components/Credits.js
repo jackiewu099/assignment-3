@@ -14,9 +14,9 @@ const Credits = (props) => {
       <h2>Credit Display Area</h2>
 
       <ul className = "credit-list">
-        {props.credits.map((credit, index) => {
+        {props.credits.map((credit) => {
           return (
-            <li key={index}> {credit.description}  |  ${credit.amount}  |  {credit.date}</li>
+            <li key={credit.id}> {credit.description}  |  ${credit.amount}  |  {credit.date}</li>
           )
         })}
       </ul>
