@@ -40,6 +40,22 @@ class App extends Component {
     this.setState({currentUser: newUser})
   }
 
+  componentDidMount() {
+    this.renderAccountBalance();
+  }
+
+  renderAccountBalance = () => {
+    const copyOfCreditList = [...this.state.creditList];
+    const creditSum = copyOfCreditList.reduce((total, credit) => total + credit.amount, 0);
+
+    const copyOfDebitList = [...this.state.debitList];
+    const debitSum = copyOfDebitList.reduce((total, debit) => total + debit.amount, 0);
+
+    this.setState({
+      accountBalance: parseFloat((creditSum - debitSum).toFixed(2))
+    });
+  }
+
   addCredit = (e) => {
     e.preventDefault();
     const newCredit = {
