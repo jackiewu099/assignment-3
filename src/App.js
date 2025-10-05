@@ -20,11 +20,8 @@ class App extends Component {
     this.state = {
       accountBalance: 0,
       creditList: [
-        {description: 'Tutoring', amount: 800.78, date: '2020-01-01'},
-        {description: 'Deck Installation', amount: 587.23, date: '2020-04-01' }
       ],
       debitList: [
-        {description: 'Groceries', amount: 45.99, date: '2020-02-01'},
       ],
       currentUser: {
         userName: 'Joe Smith',
@@ -40,8 +37,22 @@ class App extends Component {
     this.setState({currentUser: newUser})
   }
 
-  componentDidMount() {
-    this.updateAccountBalance();
+  async componentDidMount() {
+    try {
+      const creditResponse = await fetch('https://johnnylaicode.github.io/api/credits.json');
+      const creditData = await creditResponse.json();
+
+      const debitResponse = await fetch('https://johnnylaicode.github.io/api/debits.json');
+      const debitData = await debitResponse.json();
+
+      this.setState({
+        creditList: [...this.state.creditList, ...creditData],
+        debitList: [...this.state.debitList, ...debitData],
+      }, () => this.updateAccountBalance()); // Update account balance after all credits and debits are loaded
+    }
+    catch (error) {
+      console.error('Error fetching credit data:', error);
+    }
   }
 
   updateAccountBalance = () => {
