@@ -79,9 +79,25 @@ class App extends Component {
     // Update the credit list first
     this.setState(
       { creditList: [...this.state.creditList, newCredit] },
-      () => this.updateAccountBalance() // <-- called after state is updated
+      () => this.updateAccountBalance() 
     );
   };
+
+  addDebit = (e) => {
+    e.preventDefault();
+
+    const newDebit = {
+      description: e.target.description.value,
+      amount: parseFloat(parseFloat(e.target.amount.value).toFixed(2)),
+      date: new Date().toISOString().split('T')[0] // "YYYY-MM-DD"
+    };
+
+    // Update the debit list first
+    this.setState(
+      { debitList: [...this.state.debitList, newDebit] },
+      () => this.updateAccountBalance() 
+    );
+  }
 
 
   // Create Routes and React elements to be rendered using React components
@@ -93,7 +109,7 @@ class App extends Component {
     )
     const LogInComponent = () => (<LogIn user={this.state.currentUser} mockLogIn={this.mockLogIn} />)
     const CreditsComponent = () => (<Credits credits={this.state.creditList} addCredit={this.addCredit} accountBalance={this.state.accountBalance}/>) 
-    const DebitsComponent = () => (<Debits debits={this.state.debitList} />) 
+    const DebitsComponent = () => (<Debits debits={this.state.debitList} addDebit={this.addDebit} accountBalance={this.state.accountBalance}/>) 
 
     // Important: Include the "basename" in Router, which is needed for deploying the React app to GitHub Pages
     return (
