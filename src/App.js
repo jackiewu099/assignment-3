@@ -18,8 +18,11 @@ class App extends Component {
   constructor() {  // Create and initialize state
     super(); 
     this.state = {
-      accountBalance: 1234567.89,
-      creditList: [],
+      accountBalance: 30,
+      creditList: [
+        {description: 'Tutoring', amount: 800.78, date: '2020-01-01'},
+        {description: 'Deck Installation', amount: 587.23, date: '2020-04-01' }
+      ],
       debitList: [],
       currentUser: {
         userName: 'Joe Smith',
@@ -35,6 +38,10 @@ class App extends Component {
     this.setState({currentUser: newUser})
   }
 
+  addCredit = (e) => {
+    e.preventDefault();
+  }
+
   // Create Routes and React elements to be rendered using React components
   render() {  
     // Create React elements and pass input props to components
@@ -43,12 +50,12 @@ class App extends Component {
       <UserProfile userName={this.state.currentUser.userName} memberSince={this.state.currentUser.memberSince} />
     )
     const LogInComponent = () => (<LogIn user={this.state.currentUser} mockLogIn={this.mockLogIn} />)
-    const CreditsComponent = () => (<Credits credits={this.state.creditList} />) 
+    const CreditsComponent = () => (<Credits credits={this.state.creditList} addCredit={this.addCredit} accountBalance={this.state.accountBalance}/>) 
     const DebitsComponent = () => (<Debits debits={this.state.debitList} />) 
 
     // Important: Include the "basename" in Router, which is needed for deploying the React app to GitHub Pages
     return (
-      <Router basename="/bank-of-react-starter-code">
+      <Router basename="/assignment-3">
         <div>
           <Route exact path="/" render={HomeComponent}/>
           <Route exact path="/userProfile" render={UserProfileComponent}/>
