@@ -22,11 +22,19 @@ const Debits = (props) => {
 
       {debitsView()}
 
-      <form onSubmit={props.addDebit}>
-        <input type="text" name="description" />
-        <input type="number" name="amount" />
-        <button type="submit">Add Debit</button>
+      <form onSubmit={props.addDebit}className ="add-debit-form">
+        <h3>Add Debit</h3>
+        <div className = "add-debit-description">
+          <label>Description: </label>
+          <input type="text" name="description" />
+        </div>
+        <div className = "add-debit-amount">
+          <label>Amount: </label>
+          <input type="text" name="amount" />
+        </div>
+        <button className = "add-debit-button" type="submit">Add Credit</button>
       </form>
+
       <br/>
 
       <h3>Account Balance: ${props.accountBalance}</h3>
