@@ -28,6 +28,8 @@ const Debits = (props) => {
         <button type="submit">Add Debit</button>
       </form>
       <br/>
+
+      <h3>Account Balance: ${props.accountBalance}</h3>
       <Link to="/">Return to Home</Link>
     </div>
   );
