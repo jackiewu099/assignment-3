@@ -40,6 +40,10 @@ class App extends Component {
     this.setState({currentUser: newUser})
   }
 
+  componentDidMount() {
+    this.updateAccountBalance();
+  }
+
   updateAccountBalance = () => {
     const copyOfCreditList = [...this.state.creditList];
     const creditSum = copyOfCreditList.reduce((total, credit) => total + credit.amount, 0);
