@@ -18,12 +18,14 @@ class App extends Component {
   constructor() {  // Create and initialize state
     super(); 
     this.state = {
-      accountBalance: 30,
+      accountBalance: 0,
       creditList: [
         {description: 'Tutoring', amount: 800.78, date: '2020-01-01'},
         {description: 'Deck Installation', amount: 587.23, date: '2020-04-01' }
       ],
-      debitList: [],
+      debitList: [
+        {description: 'Groceries', amount: 45.99, date: '2020-02-01'},
+      ],
       currentUser: {
         userName: 'Joe Smith',
         memberSince: '11/22/99',
@@ -40,6 +42,22 @@ class App extends Component {
 
   addCredit = (e) => {
     e.preventDefault();
+    const newCredit = {
+      description: e.target.description.value,
+      amount: parseFloat(parseFloat(e.target.amount.value).toFixed(2)),
+      date: new Date().getFullYear() + '-' + (new Date().getMonth()+1).toString().padStart(2, '0') + '-' + new Date().getDate().toString().padStart(2, '0')
+    }
+
+    const copyOfCreditList = [...this.state.creditList];
+    const creditSum = copyOfCreditList.reduce((total, credit) => total + credit.amount, 0) + newCredit.amount;
+
+    const copyOfDebitList = [...this.state.debitList];
+    const debitSum = copyOfDebitList.reduce((total, debit) => total + debit.amount, 0);
+
+    this.setState({
+      creditList: [...this.state.creditList, newCredit],
+      accountBalance: parseFloat((creditSum - debitSum).toFixed(2))
+    });
   }
 
   // Create Routes and React elements to be rendered using React components
