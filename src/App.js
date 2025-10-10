@@ -69,35 +69,70 @@ class App extends Component {
 
   addCredit = (e) => {
     e.preventDefault();
+    try {
+      const description = e.target.description.value.trim();
+      const amountInput = e.target.amount.value.trim();
 
-    const newCredit = {
-      description: e.target.description.value,
-      amount: parseFloat(parseFloat(e.target.amount.value).toFixed(2)),
-      date: new Date().toISOString().split('T')[0] // "YYYY-MM-DD"
-    };
+      // Check if amount is a valid number
+      const amount = parseFloat(amountInput);
+      if (isNaN(amount) || amount < 0) {
+        throw new Error("Invalid amount. Please enter a valid positive number.");
+      }
 
-    // Update the credit list first
-    this.setState(
-      { creditList: [...this.state.creditList, newCredit] },
-      () => this.updateAccountBalance() 
-    );
+      // Check for empty description
+      if (!description) {
+        throw new Error("Description cannot be empty.");
+      }
+
+      const newCredit = {
+        description,
+        amount: parseFloat(amount.toFixed(2)),
+        date: new Date().toISOString().split('T')[0], // "YYYY-MM-DD"
+      };
+
+      // Update the credit list first
+      this.setState(
+        { creditList: [...this.state.creditList, newCredit] },
+        () => this.updateAccountBalance()
+      );
+
+      e.target.reset();
+    } catch (error) {
+      alert(error.message); 
+    }
   };
 
   addDebit = (e) => {
     e.preventDefault();
+    try {
+      const description = e.target.description.value.trim();
+      const amountInput = e.target.amount.value.trim();
 
-    const newDebit = {
-      description: e.target.description.value,
-      amount: parseFloat(parseFloat(e.target.amount.value).toFixed(2)),
-      date: new Date().toISOString().split('T')[0] // "YYYY-MM-DD"
-    };
+      const amount = parseFloat(amountInput);
+      if (isNaN(amount) || amount < 0) {
+        throw new Error("Invalid amount. Please enter a valid positive number.");
+      }
 
-    // Update the debit list first
-    this.setState(
-      { debitList: [...this.state.debitList, newDebit] },
-      () => this.updateAccountBalance() 
-    );
-  }
+      if (!description) {
+        throw new Error("Description cannot be empty.");
+      }
+
+      const newDebit = {
+        description,
+        amount: parseFloat(amount.toFixed(2)),
+        date: new Date().toISOString().split('T')[0],
+      };
+
+      this.setState(
+        { debitList: [...this.state.debitList, newDebit] },
+        () => this.updateAccountBalance()
+      );
+
+      e.target.reset();
+    } catch (error) {
+      alert(error.message);
+    }
+  };
 
 
   // Create Routes and React elements to be rendered using React components
