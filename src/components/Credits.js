@@ -16,7 +16,7 @@ const Credits = (props) => {
       <ul className = "credit-list">
         {props.credits.map((credit) => {
           return (
-            <li key={credit.id}> {credit.description}  |  ${credit.amount}  |  {credit.date}</li>
+            <li className='credit-item' key={credit.id}> {credit.description}  |  ${credit.amount}  |  {credit.date}</li>
           )
         })}
       </ul>
